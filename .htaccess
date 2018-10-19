@@ -1,0 +1,9 @@
+Options +Indexes
+IndexOptions Charset=UTF-8 NameWidth=* FoldersFirst FancyIndexing HTMLTable SuppressColumnsorting SuppressLastModified SuppressDescription
+IndexStyleSheet /.autoindex.css
+HeaderName /.head.html
+
+RewriteEngine On
+RewriteRule (.*)\/list\.m3u /.m3u.php?path=$1
+
+RedirectMatch 404 /\.git
