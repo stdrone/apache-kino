@@ -1,0 +1,6 @@
+Require all denied
+#AddHandler mof_wsgi .wsgi
+
+<Files *.wsgi>
+    Require all granted
+</Files>
