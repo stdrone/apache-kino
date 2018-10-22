@@ -1,7 +1,7 @@
 Options +Indexes
 IndexOptions Charset=UTF-8 NameWidth=* FoldersFirst FancyIndexing HTMLTable SuppressColumnsorting SuppressLastModified SuppressDescription
-IndexStyleSheet /.api/index.css
-HeaderName /.api/head.html
+IndexStyleSheet /.index/index.css
+HeaderName /.index/head.html
 
 RewriteEngine On
 RewriteRule (.*)\/list\.m3u /.m3u.php?path=$1
