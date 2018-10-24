@@ -25,5 +25,5 @@ window.onload = function() {
 	var video_container = document.getElementById('video_container');
 	video_container.onclick = mp_stop;
 
-	gFilm = new Film();
+	gFilm = new Film(new Movie(document.getElementById('movie')));
 }

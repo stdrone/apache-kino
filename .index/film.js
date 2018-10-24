@@ -1,6 +1,6 @@
 var Film = (function() {
     var gRequest;
-    const url = '/search/';
+    const url = 'http://127.0.0.1:8000/app/';
 
     function request(type,data) {
       //var gRequest;
@@ -14,7 +14,7 @@ var Film = (function() {
         gRequest.onreadystatechange = function(e) {
           if (gRequest.readyState === 4) {
             if (gRequest.status === 200) {
-              resolve(gRequest.response)
+              resolve(JSON.parse(gRequest.response))
             } else {
               reject(gRequest.status)
             }
@@ -29,46 +29,24 @@ var Film = (function() {
       })
     }
 
-    async function ajax(type,params) {
-        var response;
-        try {
-            response = await request(type, url, params);
-        } catch(err) {
-            return null;
-        }
-        return JSON.parse(response);
-        if(document.getElementById("video_container").style.visibility != "visible") {
-            if(response == "")
-                gDiv.style = "";
-            else
-                gDiv.style = "display: block";
-            while(gDiv.children[0] != undefined) gDiv.children[0].remove();
-            var newDiv = document.createElement('div');
-            newDiv.innerHTML = response;
-            if(newDiv.children[0].getAttribute('name') == gLoaded) {
-                gDiv.innerHTML = newDiv.innerHTML;
-            }
-        }
-    }
-
-    function Film() {
-        this.get = function(name) {
+    function Film(movie) {
+        this.get = async function(name) {
             var data = new Object;
             data.name = name;
-            return ajax('POST',data);
+            data = await request('POST',data);
         }
 
-        this.change = function(name, id) {
+        this.change = async function(name, id) {
             var data = new Object;
             data.name = name;
             data.id = id;
-            return ajax('PUT',data);
+            request('PUT',data);
         }
 
-        this.delete = function(name) {
+        this.delete = async function(name) {
             var data = new Object;
             data.name = name;
-            return ajax('DELETE',data);
+            request('DELETE',data);
         }
     }
 

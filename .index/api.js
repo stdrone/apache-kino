@@ -11,10 +11,12 @@ function getFile(file) {
 		gDiv.style = "";
 		return;
 	}
-	data = gFilm.get(file.trim());
+	if(file != undefined) {
+	    gFilm.get(file.trim());
+	}
 }
 
 function changeFile(file) {
 	var id_mov = document.getElementById("CHANGE").value;
-	data = gFilm.change(file, id);
+	gFilm.change(file, id);
 }
