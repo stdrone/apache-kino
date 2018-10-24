@@ -7,27 +7,26 @@ class Movie:
 
     __temp = ''
 
-    def __init__(self):
-        return
-
-    def get(self,name):
+    @staticmethod
+    def get(name):
         data = {}
-        file = Path(self.__temp + name + '.list')
+        file = Path(Movie.__temp + name + '.list')
         if file.is_file():
             with file.open() as f:
                 data['list'] = json.load(f)
         else:
-            file = Path(self.__temp + name + '.film')
+            file = Path(Movie.__temp + name + '.film')
             if file.is_file():
                 with file.open() as f:
                     data['mov'] = json.load(f)
             else:
-                kino = KinoPoisk()
-                data['list'] = kino.search(name)
+                data['list'] = KinoPoisk.search(name)
         return data
 
-    def set(self,name,new_id):
+    @staticmethod
+    def set(name,new_id):
         return
 
-    def delete(self,name):
+    @staticmethod
+    def delete(name):
         return

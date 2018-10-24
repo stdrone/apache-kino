@@ -2,7 +2,8 @@ from app.movie import Movie
 
 
 class App:
-    def process(self, request, data):
+    @staticmethod
+    def process(request, data):
         if request == 'POST':
             return Movie.get(data['name'])
         elif request == 'PUT':
