@@ -1,5 +1,4 @@
 var playerInstance;
-var gDiv;
 var gFilm;
 
 window.onload = function() {
@@ -14,9 +13,6 @@ window.onload = function() {
 	}
 	var tab = document.getElementsByClassName("indexcolname");
 	for(var i = tab.length - 1; i >=0; i--) {
-		tab[i].onmouseout = function() {
-		//	gDiv.style = "";
-		};
 		tab[i].onmouseover = function() {
 			getFile(this.innerText.replace(/\.[^/.]+$/, "").replace("/",""));
 		};

@@ -1,11 +1,13 @@
 import pycurl
 import io
+import re
+import cyrtranslit
 from urllib import parse
 
 
 class KinoPoisk:
 
-    __cookie = ''
+    cookie = ''
 
     @staticmethod
     def __curl(url):
@@ -14,7 +16,7 @@ class KinoPoisk:
         c.setopt(c.URL, url)
         c.setopt(c.WRITEFUNCTION, response.write)
         c.setopt(c.HTTPGET, 1)
-        c.setopt(c.COOKIEFILE, KinoPoisk.__cookie)
+        c.setopt(c.COOKIEFILE, KinoPoisk.cookie)
         c.setopt(c.ENCODING, 'gzip, deflate')
         c.setopt(c.HEADER, 0)
         c.setopt(c.HTTPHEADER,  [
@@ -36,11 +38,44 @@ class KinoPoisk:
         return data
 
     @staticmethod
+    def __get_list(name):
+        search = 'https://www.kinopoisk.ru/index.php?first=no&what=&kp_query=' + parse.quote_plus(name)
+        html = KinoPoisk.__curl(search)
+        films = re.findall('data-id=\"(.*?)\".*data-type\=\"(series|film)\".*\>([^\<]+?)\<\/a.*\"year\">(.*?)<\/', html)
+        return films
+
+
+    @staticmethod
     def search(name):
-        html = KinoPoisk.__curl('https://www.kinopoisk.ru/index.php?first=no&what=&kp_query=' + parse.quote_plus(name))
-        return {}
+        films = KinoPoisk.__get_list(name)
+        name = name.replace('-',' ').replace('1','i').replace('0','o').replace('.',' ');
+        films += KinoPoisk.__get_list(name)
+        name = name.replace('’','ь').replace('ya','я')
+        name = cyrtranslit.to_cyrillic(name,'ru')
+        films += KinoPoisk.__get_list(name)
+        name = name.replace('ы','й')
+        films += KinoPoisk.__get_list(name)
+        films = list(set(films))
+        return films
 
     @staticmethod
     def get(get_id):
-        html = KinoPoisk.__curl('https://www.kinopoisk.ru/film/' + get_id  + '/')
-        return {}
+        data = {}
+        search = 'https://www.kinopoisk.ru/film/' + get_id  + '/'
+        html = KinoPoisk.__curl(search)
+
+        data['id'] = get_id
+        data['description'] = re.findall('\<div.*?\"description\"\.*?\>(.*?)\<\/div', html)[0]
+        genre = re.findall('itemprop=\"genre\".*?<\/span', html)[0]
+        data['genre'] = re.findall('<a.*?>(.*?)<\/a', genre)
+        data['name'] = re.findall('\<h1.*?\>([^\<]*?)\<(\/h1|span)', html)[0]
+        if type(data['name']) is tuple:
+            data['name'] = data['name'][0]
+        data['rate'] = re.findall('\<span.*?\"rating_ball\"\>(.*?)\<\/span', html)[0]
+        rating = re.findall('(\<img src=\".*?\/mpaa\/.*?\".*?\>)', html)
+        if len(rating) > 0:
+            data['rating'] = rating[0]
+        else:
+            data['rating'] = None
+
+        return data

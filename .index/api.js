@@ -4,19 +4,29 @@ window.MobileCheck = function() {
 }
 
 function getFile(file) {
+    file = file.trim();
 	var dir_name = window.location.href.split("/")[4];
 	if(dir_name != "") file = decodeURIComponent(dir_name);
 	if(file == "Parent Directory" || file == "Name")
 	{
-		gDiv.style = "";
+		gFilm.get(null);
 		return;
 	}
-	if(file != undefined) {
-	    gFilm.get(file.trim());
+	else if(file != "undefined") {
+	    gFilm.get(file);
 	}
+
+
 }
 
-function changeFile(file) {
-	var id_mov = document.getElementById("CHANGE").value;
+function changeFile(file, id) {
 	gFilm.change(file, id);
+}
+
+function deleteFile(file) {
+    gFilm.delete(file);
+}
+
+function clearFile(file) {
+    gFilm.clear(file);
 }

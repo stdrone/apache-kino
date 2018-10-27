@@ -1,4 +1,4 @@
-Options +Indexes
+Options +Indexes +ExecCGI +FollowSymLinks
 IndexOptions Charset=UTF-8 NameWidth=* FoldersFirst FancyIndexing HTMLTable SuppressColumnsorting SuppressLastModified SuppressDescription
 IndexStyleSheet /.index/index.css
 HeaderName /.index/head.html
