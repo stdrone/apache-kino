@@ -135,11 +135,17 @@ body {
 
 ul.genre {
     list-style-type: none;
+    font-size: small;
+    text-align: right;
 }
 
 ul.genre li {
-    float: left;
+    display: inline;
     margin-right: 10pt;
+}
+
+#description {
+    font-size: large;
 }
 
 
