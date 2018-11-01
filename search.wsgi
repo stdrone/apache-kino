@@ -29,6 +29,7 @@ def application(environ, start_response):
     return [bytes(output, encoding= 'utf-8')]
 
 
-#if os.environ['DEBUG'] == '1':
-#    httpd = make_server('', 8000, application)
-#    httpd.serve_forever()
+__debug = os.environ.get('DEBUG')
+if __debug is not None:
+    httpd = make_server('', 8000, application)
+    httpd.serve_forever()

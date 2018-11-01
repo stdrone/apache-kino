@@ -37,7 +37,10 @@ class Movie:
 
     @staticmethod
     def set(name,new_id):
-        data = {'movie': KinoPoisk.get(new_id)}
+        if new_id == '0':
+            data = {'movie': None}
+        else:
+            data = {'movie': KinoPoisk.get(new_id)}
         file = Movie._path(name)
         Movie._write(file, data)
         return data

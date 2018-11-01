@@ -58,7 +58,9 @@ var Film = (function() {
                     data = await request('POST',data);
                     if(data.list !== undefined)
                         movie.setList(name, data.list);
-                    else if(data.movie !== undefined) {
+                    else if(data.movie == undefined && data.movie == null)
+                        movie.hide();
+                    else {
                         data.movie.file = name;
                         movie.setMovie(data.movie)
                     }
@@ -75,7 +77,9 @@ var Film = (function() {
             data.id = id;
             try {
                 data = await request('PUT',data);
-                 if(data.movie !== undefined) {
+                 if(data.movie == undefined && data.movie == null)
+                    movie.hide();
+                 else {
                     data.movie.file = name;
                     movie.setMovie(data.movie)
                  }

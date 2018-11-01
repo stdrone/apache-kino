@@ -49,6 +49,7 @@ var Movie = (function() {
 
             _list.querySelector('#change').onclick = function() {
                 var newId = _list.querySelector('#newId').value;
+                _list.querySelector('#newId').value = null;
                 changeFile(name, newId);
                 return false;
             }
