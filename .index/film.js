@@ -41,7 +41,7 @@ var Film = (function() {
                 movie.setLoading();
                 data = await request('DELETE',data);
                 if(data.delete == true) {
-                    window.location = window.location;
+                    setTimeout('window.location = window.location', 2000);
                 }
                 movie.hide();
             } catch(err) {
