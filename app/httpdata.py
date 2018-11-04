@@ -3,26 +3,37 @@ import json
 
 class HttpData:
 
-    __environ = []
-    __bodySize = 0
+    __method: str
+    __name: str
+    __id: str
+    __withFile: bool
+
+    @property
+    def method(self):
+        return self.__method
+
+    @property
+    def name(self):
+        return self.__name
+
+    @property
+    def withFile(self):
+        return self.__withFile
+
+    @property
+    def id(self):
+        return self.__id
 
     def __init__(self, environ):
-        self.__environ = environ
+        self.__method = environ['REQUEST_METHOD']
         try:
-            self.__bodySize = int(self.__environ.get('CONTENT_LENGTH', 0))
+            body_size = int(environ.get('CONTENT_LENGTH', 0))
+            data = environ['wsgi.input'].read(body_size)
+            data = data.decode("utf-8")
+            if data != '':
+                data = json.loads(data)
+                self.__name = data.get('name')
+                self.__id = data.get('id')
+                self.__withFile = data.get('file')
         except ValueError:
-            self.__bodySize = 0
-
-    def body(self):
-        data = self.__environ['wsgi.input'].read(self.__bodySize)
-        data = data.decode("utf-8")
-        if data == '':
-            return dict()
-        return json.loads(data)
-
-    def request(self):
-        return self.__environ['REQUEST_METHOD']
-
-    @staticmethod
-    def response(data):
-        return json.dumps(data)
+            return

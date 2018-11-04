@@ -1,38 +1,38 @@
-from app.kinopoisk import KinoPoisk
-import os.path
-import json
+import os.path, tempfile, kinopoisk, json
+from kinopoisk import movie
+from app.nameconverter import NameConverter
 
 
 class Movie:
 
-    temp = ''
+    id: str
+    description: str
+    genre: str
+    name: str
+    name: str
+    rate: float
+    rating: str
 
-    @staticmethod
-    def _path(name):
-        return Movie.temp + name + '.list'
+    def __init__(self, name: str):
+        self = Movie.__get(name)
 
-    @staticmethod
-    def _read(file):
-        f = open(file, 'r')
-        data = json.load(f)
-        f.close()
-        return data
-
-    @staticmethod
-    def _write(file, data):
+    def __save(self):
+        file = Movie.__path(self.name)
         f = open(file, 'w+')
-        f.write(json.dumps(data))
+        f.write(json.dumps(self))
         f.close()
 
     @staticmethod
     def get(name):
         data = {}
-        file = Movie._path(name)
-        if os.path.isfile(file):
-            data = Movie._read(file)
+        file = Movie.__path(name)
         else:
-            data['list'] = KinoPoisk.search(name)
-            Movie._write(file, data)
+            converter = NameConverter(name)
+            list = []
+            for kino in converter:
+                list += movie.Movie.objects.search(kino)
+            data['list'] = list
+            Movie.__write(file, data)
         return data
 
     @staticmethod
@@ -40,7 +40,7 @@ class Movie:
         if new_id == '0':
             data = {'movie': None}
         else:
-            data = {'movie': KinoPoisk.get(new_id)}
+            data = {'movie': None}
         file = Movie._path(name)
         Movie._write(file, data)
         return data

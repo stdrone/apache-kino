@@ -12,7 +12,7 @@ def application(environ, start_response):
         from app.httpdata import HttpData
         from app.app import App
         req = HttpData(environ)
-        data = App.process(req.request(), req.body())
+        data = App.process(req)
         output = req.response(data)
     except Exception:
         status = '500 ERROR'
