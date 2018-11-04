@@ -4,7 +4,7 @@ import json
 
 class App:
     __method = ''
-    __data = dict()
+    __data = {}
 
     def __init__(self, method, content):
         self.__method = method
@@ -14,13 +14,16 @@ class App:
 
     def process(self):
         result = {}
+        if self.__method == 'OPTIONS':
+            return result
+        movie = Movie(self.__data['name'])
         if self.__method == 'POST':
-            result = Movie.get(self.__data['name'])
+            result = movie.get()
         elif self.__method == 'PUT':
-            result = Movie.set(self.__data['name'],self.__data['id'])
+            result = movie.set(self.__data['id'])
         elif self.__method == 'DELETE':
             if self.__data['file']:
-                result = Movie.delete(self.__data['name'])
+                result = movie.delete()
             else:
-                result = Movie.clear(self.__data['name'])
+                result = movie.clear()
         return json.dumps(result)

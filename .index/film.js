@@ -36,12 +36,14 @@ var Film = (function() {
             movie.setLoading();
             var data = new Object;
             data.name = name;
-            data.file = false;
+            data.file = withFile;
             try {
                 movie.setLoading();
-                await request('DELETE',data);
+                data = await request('DELETE',data);
+                if(data.delete == true) {
+                    window.location = window.location;
+                }
                 movie.hide();
-                get(name);
             } catch(err) {
                 console.log(err);
             }
@@ -90,6 +92,7 @@ var Film = (function() {
 
         this.clear = function(name) {
             _delete(name, false);
+            movie.get(name);
         }
 
         this.delete = function(name) {
