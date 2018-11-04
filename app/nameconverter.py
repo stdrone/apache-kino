@@ -31,7 +31,7 @@ class ReplaceFunctions:
         name = re.sub('20\d\d.*', '', name)
         name = re.sub('19\d\d', '', name)
         name = re.sub('\[NNM.*?\]', '', name)
-        name = re.sub('(Season|DVD|HDR|DUB|HDT|\.m4v|\.avi)', '', name)
+        name = re.sub('(Season|Сезон|DVD|HDR|DUB|HDT|\.m4v|\.avi)', '', name)
         name = name.replace('.', ' ').replace('_', ' ')
         return name
 

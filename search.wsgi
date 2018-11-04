@@ -9,11 +9,11 @@ def application(environ, start_response):
     status = '200 OK'
 
     try:
-        from app.httpdata import HttpData
         from app.app import App
-        req = HttpData(environ)
-        data = App.process(req)
-        output = req.response(data)
+        body_size = int(environ.get('CONTENT_LENGTH', 0))
+        content = environ['wsgi.input'].read(body_size)
+        http_app = App(environ['REQUEST_METHOD'], content)
+        output = http_app.process()
     except Exception:
         status = '500 ERROR'
         (t, v, tb) = sys.exc_info()
