@@ -62,22 +62,23 @@ class Movie:
 
     def __get_progress(self):
         file_hash = self.__data.get('hash')
-        if file_hash is not None:
-            progress = self.__data.get('progress')
+        if file_hash is not None and self.__data.get('movie') is not None:
+            progress = self.__data['movie'].get('progress')
             if progress is None or progress < 100:
                 client = self.deluge()
                 if client is not None:
                     data = client.call('core.get_torrents_status', {'id': file_hash}, ['progress'])
                     for key, torrent in data.items():
-                        self.__data['progress'] = torrent[b'progress']
+                        self.__data['movie']['progress'] = torrent[b'progress']
                         self.__save()
 
     def get(self):
         if len(self.__data) == 0:
             self.__data['list'] = KinoPoisk.search(self.__name)
             self.__save()
-        self.__get_hash()
-        self.__get_progress()
+        if 'movie' in self.__data and self.__data['movie'] is not None:
+            self.__get_hash()
+            self.__get_progress()
         return self.__data
 
     def set(self,new_id):

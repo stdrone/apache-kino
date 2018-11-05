@@ -64,8 +64,17 @@ var Movie = (function() {
             div.querySelector('#rating').innerHTML = movie.rating;
             div.querySelector('#description').innerHTML = movie.description;
             div.querySelector('#img').src = 'https://st.kp.yandex.net/images/film_iphone/iphone360_' + movie.id + '.jpg';
+            div.querySelector('#ref').href = 'https://www.kinopoisk.ru/film/' + movie.id;
 
-            genre = div.querySelector('#genre');
+            var progress = div.querySelector('#progress');
+            if(movie.progress != undefined && movie.progress < 100) {
+                progress.classList.add('inprogress');
+                progress.querySelector('div').style.width = movie.progress + '%';
+            } else {
+                progress.classList.remove('inprogress');
+            }
+
+            var genre = div.querySelector('#genre');
             while (genre.firstChild) genre.removeChild(genre.firstChild);
             for (var key in movie.genre) {
                 var li = document.createElement('li');

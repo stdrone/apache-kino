@@ -81,6 +81,26 @@
     font-size: small;
 }
 
+#progress {
+    width: 100%;
+    height: 10pt;
+    border: black;
+    border-style: double;
+    margin-bottom: 5pt;
+    display: none;
+}
+
+#progress.inprogress {
+    display: block;
+}
+
+#progress>div {
+    height: 100%;
+    width: 0%;
+    width: attr(data-progress number, 0);
+    background-color: black;
+}
+
 #clear {
     position: absolute;
     left: 0;
@@ -181,10 +201,6 @@ div#movie h1 img {
 .close {
     text-align: right;
     display: block;
-}
-
-#progress {OC
-    display: inline-block;
 }
 
 /*
