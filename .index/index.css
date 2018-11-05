@@ -115,7 +115,7 @@
     cursor: hand;
 }
 
-.ageLimit{background:url(/.ageLimit.gif);width:36px;height:24px;overflow:hidden;display:block;margin-top:1px !important;float:right; background-repeat: no-repeat;}
+.ageLimit{background:url(/.index/.ageLimit.gif);width:36px;height:24px;overflow:hidden;display:block;margin-top:1px !important;float:right; background-repeat: no-repeat;}
 .ageLimit.age0{background-position:0 0}
 .ageLimit.age6{background-position:0 -26px}
 .ageLimit.age12{background-position:0 -52px}

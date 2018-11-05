@@ -61,7 +61,7 @@ class KinoPoisk:
     @staticmethod
     def get(get_id):
         data = {}
-        search = 'https://www.kinopoisk.ru/film/' + get_id  + '/'
+        search = 'https://www.kinopoisk.ru/film/' + get_id + '/'
         html = KinoPoisk.__curl(search)
 
         data['id'] = get_id
@@ -72,10 +72,13 @@ class KinoPoisk:
         if type(data['name']) is tuple:
             data['name'] = data['name'][0]
         data['rate'] = re.findall('\<span.*?\"rating_ball\"\>(.*?)\<\/span', html)[0]
+
+        data['rating'] = ''
         rating = re.findall('(\<img src=\".*?\/mpaa\/.*?\".*?\>)', html)
         if len(rating) > 0:
-            data['rating'] = rating[0]
-        else:
-            data['rating'] = None
+            data['rating'] += rating[0]
+        rating = re.findall('(\<div class=\"ageLimit.*?\".*?\/div\>)', html)
+        if len(rating) > 0:
+            data['rating'] += rating[0]
 
         return data

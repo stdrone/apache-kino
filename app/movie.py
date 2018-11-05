@@ -24,6 +24,8 @@ class Movie:
             f = open(file, 'r')
             self.__data = json.load(f)
             f.close()
+        else:
+            self.__data = dict()
 
     def __save(self):
         file = self.__path()

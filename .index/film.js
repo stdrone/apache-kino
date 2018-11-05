@@ -91,7 +91,6 @@ var Film = (function() {
 
         this.clear = function(name) {
             _delete(name, false);
-            movie.get(name);
         }
 
         this.delete = function(name) {
