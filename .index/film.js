@@ -7,7 +7,6 @@ var Film = (function() {
       if(gRequest !== undefined && gRequest.readyState !== 4) {
         gRequest.abort();
       }
-      //gDiv.innerHTML = "<div><img src='https://3.bp.blogspot.com/-eeiu8xL2Qls/UQaimEebl4I/AAAAAAAAFO8/hSK_kq7C8Po/s1600/loading9.gif'></div>";
       return new Promise(function (resolve, reject) {
         gRequest = new XMLHttpRequest();
         //gRequest.timeout = 2000;

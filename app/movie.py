@@ -32,34 +32,52 @@ class Movie:
         f.close()
 
     def deluge(self):
-        client = DelugeRPCClient(
-            '127.0.0.1',
-            58846,
-            'torrent',
-            'torrent'
-        )
-        client.connect()
-        return client
+        deluge_rpc = os.environ.get('DELUGE_ADDRESS')
+        if deluge_rpc is not None:
+            client = DelugeRPCClient(
+                deluge_rpc,
+                int(os.environ.get('DELUGE_PORT')),
+                os.environ.get('DELUGE_USER'),
+                os.environ.get('DELUGE_PASS')
+            )
+            client.connect()
+            return client
+        return None
 
     def __get_hash(self):
         if self.__data.get('hash') is None:
             #self.__data['files'] = {}
             #self.__data['name'] = self.__name
-            torrents = self.deluge().call('core.get_torrents_status', {}, ['name', 'files'])
-            for key, torrent in torrents.items():
-                for file in torrent[b'files']:
-                    file_name = file[b'path'].decode("utf-8")
-                    #self.__data['files'][key.decode("utf-8")] = file_name
-                    if self.__name in file_name:
-                        self.__data['hash'] = key.decode("utf-8")
+            client = self.deluge()
+            if client is not None:
+                torrents = client.call('core.get_torrents_status', {}, ['name', 'files'])
+                for key, torrent in torrents.items():
+                    for file in torrent[b'files']:
+                        file_name = file[b'path'].decode("utf-8")
+                        #self.__data['files'][key.decode("utf-8")] = file_name
+                        if self.__name in file_name:
+                            self.__data['hash'] = key.decode("utf-8")
+                            self.__save()
+                            break
+
+    def __get_progress(self):
+        file_hash = self.__data.get('hash')
+        if file_hash is not None:
+            progress = self.__data.get('progress')
+            if progress is None or progress < 100:
+                client = self.deluge()
+                if client is not None:
+                    data = client.call('core.get_torrents_status', {'id': file_hash}, ['progress'])
+                    for key, torrent in data.items():
+                        self.__data['progress'] = torrent[b'progress']
                         self.__save()
-                        break
 
     def get(self):
         if len(self.__data) == 0:
             self.__data['list'] = KinoPoisk.search(self.__name)
             self.__save()
         self.__get_hash()
+        self.__get_progress()
         return self.__data
 
     def set(self,new_id):
@@ -68,14 +86,16 @@ class Movie:
         else:
             self.__data = {'movie': KinoPoisk.get(new_id)}
             self.__get_hash()
-        self.__save()
+            self.__save()
         return self.__data
 
     def delete(self):
         result = dict()
         if self.__data.get('hash') is not None:
-            result['delete'] = self.deluge().call('core.remove_torrent', self.__data.get('hash'), True)
-            self.clear()
+            client = self.deluge()
+            if client is not None:
+                result['delete'] = client.call('core.remove_torrent', self.__data.get('hash'), True)
+                self.clear()
         return result
 
     def clear(self):

@@ -8,6 +8,9 @@ sys.path.append(os.path.dirname(__file__))
 def application(environ, start_response):
     status = '200 OK'
 
+    for key in ['DELUGE_ADDRESS', 'DELUGE_PORT', 'DELUGE_USER', 'DELUGE_PASS']:
+        os.environ[key] = environ.get(key, '')
+
     try:
         from app.app import App
         body_size = int(environ.get('CONTENT_LENGTH', 0))
