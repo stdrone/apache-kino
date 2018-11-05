@@ -2,7 +2,7 @@ Options +Indexes +ExecCGI +FollowSymLinks
 IndexOptions Charset=UTF-8 NameWidth=* FoldersFirst FancyIndexing HTMLTable SuppressColumnsorting SuppressLastModified SuppressDescription
 IndexStyleSheet /.index/index.css
 HeaderName /.index/head.html
-IndexIgnore app search.wsgi
+IndexIgnore app search.wsgi test
 
 RewriteEngine On
 RewriteRule (.*)\/list\.m3u /.m3u.php?path=$1
