@@ -1,5 +1,5 @@
 from app.kinopoisk import KinoPoisk
-import os.path, json, tempfile, os
+import os.path, json, os
 from deluge_client import DelugeRPCClient
 
 
@@ -13,7 +13,7 @@ class Movie:
         self.__read()
 
     def __path(self):
-        path = tempfile.gettempdir() + '/kino/'
+        path = os.environ.get('STORAGE') + '/kino/'
         if not os.path.exists(path):
             os.mkdir(path)
         return path + self.__name + '.list'

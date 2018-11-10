@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 from wsgiref.simple_server import make_server
-import os, sys, traceback, getpass
+import os, sys, traceback, getpass, tempfile
 sys.path.append(os.path.dirname(__file__))
 
 
@@ -10,6 +10,7 @@ def application(environ, start_response):
 
     for key in ['DELUGE_ADDRESS', 'DELUGE_PORT', 'DELUGE_USER', 'DELUGE_PASS']:
         os.environ[key] = environ.get(key, '')
+    os.environ['STORAGE'] = environ.get('STORAGE', tempfile.gettempdir())
 
     try:
         from app.app import App
