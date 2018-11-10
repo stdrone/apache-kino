@@ -21,6 +21,7 @@ class Movie:
     def __read(self):
         file = self.__path()
         if os.path.isfile(file):
+            os.utime(file)
             f = open(file, 'r')
             self.__data = json.load(f)
             f.close()
