@@ -34,7 +34,10 @@ class KinoPoisk:
         c.perform()
         c.close()
         data = response.getvalue()
-        data = data.decode('cp1251')
+        try:
+            data = data.decode('cp1251')
+        except:
+            data = data.decode('utf8')
         return data
 
     @staticmethod

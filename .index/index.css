@@ -168,6 +168,11 @@ ul.genre li {
     font-size: large;
 }
 
+#comment {
+    margin-top: 5pt;
+    font-style: italic;
+}
+
 
 /*div#movie div {
     font-size: 26px;

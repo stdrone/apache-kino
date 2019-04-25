@@ -63,6 +63,7 @@ var Movie = (function() {
             div.querySelector('#rate').innerHTML = movie.rate;
             div.querySelector('#rating').innerHTML = movie.rating;
             div.querySelector('#description').innerHTML = movie.description;
+            div.querySelector('#comment').innerHTML = movie.comment;
             div.querySelector('#img').src = 'https://st.kp.yandex.net/images/film_iphone/iphone360_' + movie.id + '.jpg';
             div.querySelector('#ref').href = 'https://www.kinopoisk.ru/film/' + movie.id;
 

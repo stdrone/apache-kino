@@ -23,7 +23,10 @@ class Movie:
         if os.path.isfile(file):
             os.utime(file)
             f = open(file, 'r')
-            self.__data = json.load(f)
+            try:
+                self.__data = json.load(f)
+            except:
+                self.__data = dict()
             f.close()
         else:
             self.__data = dict()
@@ -74,6 +77,19 @@ class Movie:
                     for key, torrent in data.items():
                         self.__data['movie']['progress'] = torrent[b'progress']
                         self.__save()
+            comment = self.__data['movie'].get('comment')
+            if comment is None:
+                client = self.deluge()
+                if client is not None:
+                    data = client.call('core.get_torrents_status', {'id': file_hash}, ['comment'])
+                    for key, torrent in data.items():
+                        comment = torrent[b'comment']
+                        if comment is not None:
+                            self.__data['movie']['comment'] = comment.decode("utf-8")
+                            self.__save()
+                        else:
+                            self.__data['movie']['comment'] = ''
+                            self.__save()
 
     def get(self):
         if len(self.__data) == 0:
