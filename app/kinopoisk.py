@@ -47,6 +47,18 @@ class KinoPoisk:
         films = re.findall('data-id=\"(.*?)\".*data-type\=\"(series|film)\".*\>([^\<]+?)\<\/a.*\"year\">(.*?)<\/', html)
         return films
 
+    @staticmethod
+    def __parse(regexp, html):
+        if not isinstance(html, str):
+            return None
+        data = re.findall(regexp, html)
+        if type(data) is tuple:
+            if type(data[0]) is tuple:
+                return data[0][0]
+            else:
+                return data[0]
+        else:
+            return data
 
     @staticmethod
     def search(name):
@@ -68,19 +80,19 @@ class KinoPoisk:
         html = KinoPoisk.__curl(search)
 
         data['id'] = get_id
-        data['description'] = re.findall('\<div.*?\"description\"\.*?\>(.*?)\<\/div', html)[0]
-        genre = re.findall('itemprop=\"genre\".*?<\/span', html)[0]
-        data['genre'] = re.findall('<a.*?>(.*?)<\/a', genre)
-        data['name'] = re.findall('\<h1.*?\>([^\<]*?)\<(\/h1|span)', html)[0]
-        if type(data['name']) is tuple:
-            data['name'] = data['name'][0]
-        data['rate'] = re.findall('\<span.*?\"rating_ball\"\>(.*?)\<\/span', html)[0]
+        data['description'] = KinoPoisk.__parse('\<div.*?\"description\"\.*?\>(.*?)\<\/div', html)
+
+        genre = KinoPoisk.__parse('itemprop=\"genre\".*?<\/span', html)
+        data['genre'] = KinoPoisk.__parse('<a.*?>(.*?)<\/a', genre)
+
+        data['name'] = KinoPoisk.__parse('\<h1.*?\>([^\<]*?)\<', html)
+        data['rate'] = KinoPoisk.__parse('\<span.*?\"rating_ball\"\>(.*?)\<\/span', html)
 
         data['rating'] = ''
-        rating = re.findall('(\<img src=\".*?\/mpaa\/.*?\".*?\>)', html)
+        rating = KinoPoisk.__parse('(\<img src=\".*?\/mpaa\/.*?\".*?\>)', html)
         if len(rating) > 0:
             data['rating'] += rating[0]
-        rating = re.findall('(\<div class=\"ageLimit.*?\".*?\/div\>)', html)
+        rating = KinoPoisk.__parse('(\<div class=\"ageLimit.*?\".*?\/div\>)', html)
         if len(rating) > 0:
             data['rating'] += rating[0]
 

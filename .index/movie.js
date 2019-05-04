@@ -83,6 +83,9 @@ var Movie = (function() {
                 genre.appendChild(li);
             };
 
+            _clear.querySelector('#refreshFilm').onclick = function() {
+                changeFile(movie.file, movie.id);
+            };
             _clear.querySelector('#clearFilm').onclick = function() {
                 clearFile(movie.file);
             };
