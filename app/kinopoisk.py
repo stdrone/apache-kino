@@ -83,7 +83,7 @@ class KinoPoisk:
         data['description'] = KinoPoisk.__parse('\<div.*?\"description\"\.*?\>(.*?)\<\/div', html)
 
         genre = KinoPoisk.__parse('itemprop=\"genre\".*?<\/span', html)
-        data['genre'] = KinoPoisk.__parse('<a.*?>(.*?)<\/a', genre)
+        data['genre'] = KinoPoisk.__parse('<a.*?>(.*?)<\/a', genre[0])
 
         data['name'] = KinoPoisk.__parse('\<h1.*?\>([^\<]*?)\<', html)
         data['rate'] = KinoPoisk.__parse('\<span.*?\"rating_ball\"\>(.*?)\<\/span', html)
