@@ -3,6 +3,7 @@
     left: 45%;
     width: 50%;
     height: 90%;
+    opacity: 0.9;
     background: cyan;
     border-radius: 25px;
     overflow-y: scroll;
@@ -212,9 +213,18 @@ div#movie h1 img {
 	The directory we are browsing
 */
 
-#indexlist tr {
+#indexlist.desktop {
 	font-size: xx-large;
 }
+
+#indexlist.mobile {
+    font-size: medium;
+}
+
+#indexlist tr:focus-within {
+    background: #86f;
+}
+
 
 #list tr td {
 	border-radius: 3px;
