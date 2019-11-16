@@ -1,0 +1,46 @@
+<script src="/.index/movie.js"></script>
+<script src="/.index/film.js"></script>
+<script src="/.index/api.js"></script>
+<script src="/.index/video.js"></script>
+<script src="/.index/app.js"></script>
+<div id="movie">
+    <div id="loading">
+        <img src="https://3.bp.blogspot.com/-eeiu8xL2Qls/UQaimEebl4I/AAAAAAAAFO8/hSK_kq7C8Po/s1600/loading9.gif">
+    </div>
+    <div id="list">
+        <div>
+            <form>
+                <a><div id="filmName"></div></a>
+                <input id="newId" type="number">
+                <button id="change">Изменить</button>
+            </form>
+        </div>
+        <div id="listTable">
+
+        </div>
+    </div>
+    <div id="info">
+        <div id="rating"></div>
+        <h1>
+            <a id="ref"><span id="name"></span></a>
+            <span id="rate"></span>
+        </h1>
+        <div>
+            <ul id="genre" class="genre"></ul>
+        </div>
+        <div id="progress"><div></div></div>
+        <img id="img">
+        <div id="description"></div>
+        <div id="comment"></div>
+        <div id="clear">
+            <span id="refreshFilm">Обновить</span>
+            <span id="clearFilm">Очистить</span>
+            <span id="deleteFilm">Удалить</span>
+        </div>
+    </div>
+</div>
+<div id="video_container">
+	<video id="vplayer" controls="true">
+		<source id="video_src" src="">
+	</video>
+</div>

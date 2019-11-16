@@ -1,0 +1,349 @@
+#movie {
+    position: fixed;
+    left: 45%;
+    width: 50%;
+    height: 90%;
+    background: cyan;
+    border-radius: 25px;
+    overflow-y: scroll;
+    display: none;
+    padding: 25px 25px 25px 25px;
+    transition: width 0.5s, height 0.5s;
+}
+/*
+#movie.loading {
+    left: 45%;
+    top: 45%;
+    width: 60px;
+    height: 60px;
+    overflow-y: hidden;
+    transition: width 0.5s, height 0.5s;
+}
+*/
+
+#movie.visible {
+    display: inherit;
+}
+
+#movie>div {
+    display: none;
+}
+
+#movie.loading #loading {
+    display: inherit;
+}
+
+/* list */
+
+#movie.list #list {
+    display: inherit;
+}
+
+#movie.list #list #filmName {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+#movie.list #list #listTable>div>div {
+    display: table;
+}
+
+#movie.list #list #listTable>div>div {
+    display: table-cell;
+    vertical-align: middle;
+}
+
+#movie.list #list #listTable>div:hover {
+    cursor: hand;
+    background: lightsteelblue;
+}
+
+#movie.list #list #listTable>div>div>img {
+    float: none;
+}
+
+/* info */
+
+#movie.info #info {
+    display: inherit;
+}
+
+.genre {
+    color: gray;
+    font-family: serif;
+    font-style: italic;
+    font-size: 20px;
+}
+
+#rate {
+    vertical-align: super;
+    font-size: small;
+}
+
+#progress {
+    width: 100%;
+    height: 10pt;
+    border: black;
+    border-style: double;
+    margin-bottom: 5pt;
+    display: none;
+}
+
+#progress.inprogress {
+    display: block;
+}
+
+#progress>div {
+    height: 100%;
+    width: 0%;
+    width: attr(data-progress number, 0);
+    background-color: black;
+}
+
+#clear {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    text-align: right;
+    padding: 5pt;
+}
+
+#clear span {
+    padding-right: 10pt;
+    cursor: hand;
+}
+
+.ageLimit{background:url(/.index/.ageLimit.gif);width:36px;height:24px;overflow:hidden;display:block;margin-top:1px !important;float:right; background-repeat: no-repeat;}
+.ageLimit.age0{background-position:0 0}
+.ageLimit.age6{background-position:0 -26px}
+.ageLimit.age12{background-position:0 -52px}
+.ageLimit.age14{background-position:0 -78px}
+.ageLimit.age16{background-position:0 -104px}
+.ageLimit.age18{background-position:0 -130px}
+
+/* video */
+
+#video_container {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background: grey;
+    visibility: hidden;
+}
+
+#video_container video {
+    width: 100%;
+    height: 100%;
+}
+
+
+body {
+	font-family: helvetica Neue, helvetica, Arial;
+	font-size: 14px;
+	background: #eee;
+}
+
+#page {
+	width: 800px;
+	margin: 20px auto;
+	background: #fff;
+	padding: 25px;
+	border: 1px solid #eee;
+}
+
+ul.genre {
+    list-style-type: none;
+    font-size: small;
+    text-align: right;
+}
+
+ul.genre li {
+    display: inline;
+    margin-right: 10pt;
+}
+
+#description {
+    font-size: large;
+}
+
+#comment {
+    margin-top: 5pt;
+    font-style: italic;
+}
+
+
+/*div#movie div {
+    font-size: 26px;
+}*/
+
+/*div#movie div#clear {
+    font-size: inherit;
+}
+div#movie div#delete {
+    font-size: inherit;
+}*/
+
+div#movie div#clear a {
+    float: right;
+}
+
+div#movie div#delete a {
+    float: right;
+}
+
+div#movie img {
+    float: right;
+}
+
+div#movie h1 img {
+    float: left;
+    height: 24px;
+    margin-top: 2px;
+}
+
+.close {
+    text-align: right;
+    display: block;
+}
+
+/*
+	The directory we are browsing
+*/
+
+#indexlist tr {
+	font-size: xx-large;
+}
+
+#list tr td {
+	border-radius: 3px;
+	background: #f3f3f3;
+
+	padding: 7px 10px;
+	margin-bottom: 10px;
+	font-size: 14px;
+	letter-spacing: 0.5px;
+}
+
+#list tr td a {
+	color: #777;
+}
+
+#list tr td a:hover {
+	color: #333;
+	background-color : #c0c045;
+}
+
+#list tr td:nth-child(3) {
+	display: none;
+}
+#list tr th:nth-child(3) {
+	display: none;
+}
+#list tr td:nth-child(2) {
+	width: 100px;
+}
+#list tr th:nth-child(2) {
+	width: 100px;
+}
+
+.pathline {
+	border-radius: 3px;
+	background: #f3f3f3;
+
+	padding: 7px 10px;
+	margin-bottom: 10px;
+	font-size: 14px;
+	letter-spacing: 0.5px;
+}
+
+.pathline img {
+	width: 13px;
+	margin-right: 3px;
+}
+
+.pathline a {
+	color: #777;	
+}
+
+.pathline a:hover {
+	color: #333;
+}
+
+
+/*
+	Main table
+*/
+
+#dirlist table a {
+	color: #222;
+}
+
+#dirlist table {
+	width: 100%;
+	text-align: left;
+}
+
+#dirlist table th {
+	padding: 5px 10px;
+	font-size: 15px;
+	cursor: pointer;
+}
+
+#dirlist table td {
+	border-bottom: 1px solid #eee;
+	vertical-align: middle;
+	font-size: 12px;
+}
+
+#dirlist table td a {
+	padding: 10px 0px 10px 0px;
+	display: block;
+	width: 500px;
+    white-space: nowrap; 
+	overflow: hidden; 
+	text-overflow:ellipsis;
+	cursor: pointer;
+	font-size: 14px;
+}
+
+#dirlist table img {
+	vertical-align: middle;
+	width: 16px;
+}
+
+#dirlist tr:hover td
+{
+	background: #f9f9f9;
+}
+
+
+/*
+	Footer
+*/
+
+#footer {
+	margin-top: 10px;
+	text-align: center;
+}
+
+#footer address{
+	color: #aaa;
+	font-style: normal;
+	font-size: 12px;
+}
+
+td a {
+	display: inline-block;
+	width: 100%;
+	height: 100%;
+}
+
+td:hover {
+	background: #f77;
+}
+
+tr:nth-child(even) {
+	background: #bbf;
+}

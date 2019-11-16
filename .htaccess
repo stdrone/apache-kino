@@ -1,9 +1,15 @@
-Options +Indexes
+Options +Indexes +ExecCGI +FollowSymLinks
 IndexOptions Charset=UTF-8 NameWidth=* FoldersFirst FancyIndexing HTMLTable SuppressColumnsorting SuppressLastModified SuppressDescription
-IndexStyleSheet /.autoindex.css
-HeaderName /.head.html
+IndexStyleSheet /.index/index.css
+HeaderName /.index/head.html
+IndexIgnore app search.wsgi test
 
 RewriteEngine On
 RewriteRule (.*)\/list\.m3u /.m3u.php?path=$1
 
-RedirectMatch 404 /\.git
+#RewriteCond %{DOCUMENT_ROOT}%{REQUEST_FILENAME} !-f
+#RewriteCond %{REQUEST_FILENAME} !-f
+#RewriteRule ^/(.*)$ /search/$1 [QSA,L,PT]
+
+#RedirectMatch 404 /\.api/head.html
+#RedirectMatch 404 /\.api.*
