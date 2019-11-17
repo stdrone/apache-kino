@@ -3,6 +3,7 @@ var gFilm;
 
 window.onload = function () {
 	const cIndexList = "indexlist";
+	const cMovie = "movie";
 
 	gDiv = document.getElementById("movie");
 	if (!window.MobileCheck()) {
@@ -13,8 +14,10 @@ window.onload = function () {
 			}
 		}
 		document.getElementById(cIndexList).classList.add("desktop");
+		document.getElementById(cMovie).classList.add("desktop");
 	} else {
 		document.getElementById(cIndexList).classList.add("mobile");
+		document.getElementById(cMovie).classList.add("mobile");
 	}
 	var tab = document.getElementsByClassName("indexcolname");
 	for (var i = tab.length - 1; i >= 0; i--) {
@@ -32,7 +35,7 @@ window.onload = function () {
 	var video_container = document.getElementById('video_container');
 	video_container.onclick = mp_stop;
 
-	gFilm = new Film(new Movie(document.getElementById('movie')));
+	gFilm = new Film(new Movie(document.getElementById(cMovie)));
 
 	function focusNext(forward) {
 		var focused = document.activeElement;
