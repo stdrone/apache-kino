@@ -58,7 +58,7 @@ window.onload = function () {
 		}
 	}
 
-	document.addEventListener('keyup',
+	window.addEventListener('keydown',
 		function (event) {
 			event = event || window.event;
 			if (event.keyCode == '38') {
