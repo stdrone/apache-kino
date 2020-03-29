@@ -3,6 +3,7 @@
     left: 45%;
     width: 50%;
     height: 90%;
+    opacity: 0.9;
     background: cyan;
     border-radius: 25px;
     overflow-y: scroll;
@@ -73,12 +74,16 @@
     color: gray;
     font-family: serif;
     font-style: italic;
-    font-size: 20px;
+    font-size: 125%;
 }
 
 #rate {
     vertical-align: super;
-    font-size: small;
+    font-size: 75%;
+}
+
+#img {
+    width: 50%;
 }
 
 #progress {
@@ -108,6 +113,7 @@
     right: 0;
     text-align: right;
     padding: 5pt;
+    font-size: 75%;
 }
 
 #clear span {
@@ -141,7 +147,7 @@
 
 body {
 	font-family: helvetica Neue, helvetica, Arial;
-	font-size: 14px;
+	font-size: 50%;
 	background: #eee;
 }
 
@@ -155,7 +161,7 @@ body {
 
 ul.genre {
     list-style-type: none;
-    font-size: small;
+    font-size: 75%;
     text-align: right;
 }
 
@@ -165,12 +171,13 @@ ul.genre li {
 }
 
 #description {
-    font-size: large;
+    font-size: 150%;
 }
 
 #comment {
     margin-top: 5pt;
     font-style: italic;
+    font-size: 75%;
 }
 
 
@@ -212,14 +219,30 @@ div#movie h1 img {
 	The directory we are browsing
 */
 
-#indexlist tr {
-	font-size: xx-large;
+#indexlist.desktop {
+	font-size: 400%;
 }
+
+#movie.desktop {
+	font-size: 250%;
+}
+
+#movie.mobile {
+	font-size: 100%;
+}
+
+#indexlist.mobile {
+    font-size: 150%;
+}
+
+#indexlist tr:focus-within {
+    background: #86f;
+}
+
 
 #list tr td {
 	border-radius: 3px;
 	background: #f3f3f3;
-
 	padding: 7px 10px;
 	margin-bottom: 10px;
 	font-size: 14px;
